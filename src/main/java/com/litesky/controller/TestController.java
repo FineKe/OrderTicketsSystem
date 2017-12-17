@@ -1,7 +1,9 @@
 package com.litesky.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.litesky.dao.LineDao;
 import com.litesky.dao.UserDao;
+import com.litesky.model.Line;
 import com.litesky.model.User;
 import com.litesky.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ public class TestController {
     @ResponseBody
     @PostMapping("/user")
     public String addUser(@RequestBody User user) {
+
         return JSONObject.toJSONString(userService.save(user));
     }
 }

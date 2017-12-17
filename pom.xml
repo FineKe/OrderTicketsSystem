@@ -12,7 +12,7 @@
     <mysql.version>5.1.38</mysql.version>
     <druid.version>1.1.2</druid.version>
     <spring-data-jpa.version>1.9.4.RELEASE</spring-data-jpa.version>
-    <hibernate.version>5.1.0.Final</hibernate.version>
+    <hibernate.version>5.0.0.Final</hibernate.version>
   </properties>
   <dependencies>
 
@@ -123,12 +123,12 @@
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
-      <version>${hibernate.version}</version>
+      <version>5.1.0.Final</version>
     </dependency>
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-entitymanager</artifactId>
-      <version>${hibernate.version}</version>
+      <version>5.1.0.Final</version>
       <exclusions>
         <exclusion>
           <artifactId>cglib</artifactId>
@@ -144,11 +144,6 @@
       <groupId>org.hibernate.javax.persistence</groupId>
       <artifactId>hibernate-jpa-2.0-api</artifactId>
       <version>1.0.0.Final</version>
-    </dependency>
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-ehcache</artifactId>
-      <version>RELEASE</version>
     </dependency>
 
     <!--持久层框架springdatajpa-->

@@ -20,24 +20,36 @@
         <!--注入数据源-->
         <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan" value="com.litesky.model"/>
-        <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-                <property name="generateDdl" value="true"/>
-                <property name="database" value="MYSQL"/>
-                <property name="showSql" value="true"/>
-                <property name="databasePlatform" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
-            </bean>
-        </property>
-        <property name="jpaDialect">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>
+        <property name="persistenceProviderClass" value="org.hibernate.jpa.HibernatePersistenceProvider"/>
+        <property name="jpaProperties">
+            <props>
+                <!--常见的还有 MySQL5Dialect、MySQL5InnoDBDialect、MySQL57InnoDBDialect、MySQLDialect、MySQLInnoDBDialect、MySQLMyISAMDialect-->
+                <!--如果你使用的数据库是 5.7 的话可以考虑用：MySQL57InnoDBDialect-->
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <!--是否显示 SQL-->
+                <prop key="hibernate.show_sql">true</prop>
+                <!--如果显示 SQL，输出的 SQL 时候要格式化-->
+                <prop key="hibernate.format_sql">true</prop>
+                <!--在显示的 SQL 中增加一些 Hibernate 提供的注释说明，依此来解释它生成的 SQL 意思-->
+                <!--配置如何根据java模型生成数据库表结构,常用update,validate-->
+                <prop key="hibernate.use_sql_comments">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <!--关于这个属性可以看：http://blog.csdn.net/dracotianlong/article/details/27834143-->
+                <!--ImprovedNamingStrategy 是采用下划线，符合我们一般命名表字段的习惯-->
+                <!--所以，命名规则 My_NAME->MyName-->
+                <prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
+
+                <prop key="hibernate.generate_statistics">false</prop>
+            </props>
         </property>
     </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
-    <jpa:repositories base-package="com.litesky" transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory"/>
+    <jpa:repositories base-package="com.litesky.dao" transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory"/>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>
