@@ -14,7 +14,7 @@ public class Line implements Serializable{
     private static final long serialVersionUID = -4256673794817723963L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
@@ -31,6 +31,11 @@ public class Line implements Serializable{
      * 站点到达时间
      */
     private String stationTime;
+
+    /**
+     * 历经时间
+     */
+    private Date arrivadeTime;
 
     /**
      * 商务座票数
@@ -232,6 +237,14 @@ public class Line implements Serializable{
 
     public void setTicketsPrice(String ticketsPrice) {
         this.ticketsPrice = ticketsPrice;
+    }
+
+    public Date getArrivadeTime() {
+        return arrivadeTime;
+    }
+
+    public void setArrivadeTime(Date arrivadeTime) {
+        this.arrivadeTime = arrivadeTime;
     }
 
     @Override

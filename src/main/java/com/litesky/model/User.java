@@ -2,29 +2,45 @@ package com.litesky.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
-/**
- * Created by finefine.com on 2017/12/11.
- */
 @Entity
-@Table(name = "user")
 public class User implements Serializable {
-    private static final long serialVersionUID = -5124440188938192117L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private static final long serialVersionUID = 1136811546016552966L;
 
-    private String name;
+    @Id@GeneratedValue
+    private long uid;
 
-    private String pwd;
+    @Column(unique = true)
+    private String username;//账号
 
-    public Long getId() {
-        return id;
+    private String name;//名称
+
+    private String password;//密码
+
+    private String salt;//盐
+
+    private byte state;//用户状态
+
+    @ManyToMany(fetch = FetchType.EAGER)//立即从数据库加载数据
+    @JoinTable(name = "SysUserRole",joinColumns = {@JoinColumn(name = "uid")},inverseJoinColumns = {@JoinColumn(name = "roleId")})
+    private List<SysRole> roles;//一个用户具有多个角色
+
+    public long getUid() {
+        return uid;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUid(long uid) {
+        this.uid = uid;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getName() {
@@ -35,20 +51,48 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public String getPwd() {
-        return pwd;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getSalt() {
+        return username+salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public byte getState() {
+        return state;
+    }
+
+    public void setState(byte state) {
+        this.state = state;
+    }
+
+    public List<SysRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<SysRole> roles) {
+        this.roles = roles;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "uid=" + uid +
+                ", username='" + username + '\'' +
                 ", name='" + name + '\'' +
-                ", pwd='" + pwd + '\'' +
+                ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
+                ", state=" + state +
+                ", roles=" + roles +
                 '}';
     }
 }
