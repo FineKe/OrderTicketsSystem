@@ -10,4 +10,6 @@ import java.util.List;
 public interface LineService {
 
     List<Line> getAllLines();
+
+    List<Line> findLineByStation(String station);
 }

@@ -10,22 +10,106 @@
 <head>
     <title>火车票查询</title>
     <meta charset="UTF-8"/>
-    <link rel="stylesheet" href="../../static/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../static/bootstrap-table/css/bootstrap-table.min.css">
+
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/css/plugins/bootstrap-table/bootstrap-table.min.css">
+    <style>
+        label {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
+<div class="container" style="margin-top: 10px;">
+    <div class="row">
+        <div class="col-sm-3" style="text-align: center">
+            <label class="col-sm-4 control-label" for="starting">出发地</label>
+            <div class="col-sm-8">
+                <input type="text" id="starting" class="form-control layer-date" name="starting">
 
-<table id="table"></table>
+            </div>
+        </div>
 
-<script src="../../static/jquery/js/jquery.min.js"></script>
-<script src="../../static/bootstrap/js/bootstrap.min.js"></script>
-<script src="../../static/bootstrap-table/js/bootstrap-table.min.js"></script>
-<script src="../../static/bootstrap-table/js/bootstrap-table-toolbar.min.js"></script>
-<script src="../../static/bootstrap-table/js/bootstrap-table-zh-CN.js"></script>
+        <div class="col-sm-3">
+            <label class="col-sm-4 control-label" for="destination">目的地</label>
+            <div class="col-sm-8">
+                <input type="text" id="destination" class="form-control layer-date" name="destination">
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <label class="col-sm-4 control-label" for="date_picker">出发日</label>
+            <div class="col-sm-8">
+                <input type="text" id="date_picker" class="laydate-icon form-control layer-date" name="date">
+            </div>
+        </div>
 
+        <div class="col-sm-3">
+            <div class="col-sm-4">
+                <button type="button" id="search" class="search form-control  layer-date btn-info" onclick="search()"> <span class="glyphicon glyphicon-search"></span></button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <table id="table"></table>
+    </div>
+</div>
+<script src="../../static/js/plugins/layer/laydate/laydate.js"></script>
+<script src="../../static/js/jquery.min.js"></script>
+<script src="../../static/js/bootstrap.min.js"></script>
+<script src="../../static/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="../../static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+
+<script>
+    //外部js调用
+    laydate({
+        elem: '#date_picker', //目标元素。由于laydate.js封装了一个轻量级的选择器引擎，因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
+        event: 'focus' //响应事件。如果没有传入event，则按照默认的click
+    });
+
+    //日期范围限制
+    var start = {
+        elem: '#start',
+        format: 'YYYY/MM/DD hh:mm:ss',
+        min: laydate.now(), //设定最小日期为当前日期
+        max: '2099-06-16 23:59:59', //最大日期
+        istime: true,
+        istoday: false,
+        choose: function (datas) {
+            end.min = datas; //开始日选好后，重置结束日的最小日期
+            end.start = datas //将结束日的初始值设定为开始日
+        }
+    };
+    var end = {
+        elem: '#end',
+        format: 'YYYY/MM/DD hh:mm:ss',
+        min: laydate.now(),
+        max: '2099-06-16 23:59:59',
+        istime: true,
+        istoday: false,
+        choose: function (datas) {
+            start.max = datas; //结束日选好后，重置开始日的最大日期
+        }
+    };
+    laydate(start);
+    laydate(end);
+</script>
+
+<script>
+    function search(){
+        var param={url:'/tickets/search',
+            query:{
+                starting: $('#starting').val(),
+                destination: $('#destination').val(),
+                startingDate: $('#date_picker').val()}
+        }
+
+        $("#table").bootstrapTable('refresh',param);
+    };
+</script>
 
 <script type="text/javascript">
+
     $(function () {
         //初始化Table
         var oTable = new TableInit();
@@ -44,7 +128,7 @@
                 cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
                 pagination: true,                   //是否显示分页（*）
                 sortable: false,                     //是否启用排序
-                iconsPrefix:'',
+                iconsPrefix: '',
                 sortOrder: "asc",                   //排序方式
                 queryParams: oTableInit.queryParams,//传递参数（*）
                 sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
@@ -61,7 +145,7 @@
                 uniqueId: "id",                     //每一行的唯一标识，一般为主键列
                 showToggle: true,                    //是否显示详细视图和列表视图的切换按钮
                 cardView: false,                    //是否显示详细视图
-                pagination:true,                     //底部显示分页条
+
                 detailView: false,                  //是否显示父子表
                 columns: [
                     {

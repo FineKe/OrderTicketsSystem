@@ -28,4 +28,9 @@ public class LineServiceImpl implements LineService{
         }
         return lines;
     }
+
+    @Override
+    public List<Line> findLineByStation(String station) {
+        return lineDao.findByStationsLike(station);
+    }
 }
