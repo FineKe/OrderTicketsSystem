@@ -10,4 +10,9 @@ public interface LineDao extends CrudRepository<Line,Long>{
     List<Line> findByStationsLike(String station);
 
     List<Line> findByStationsContainingAndStatrtingDate(String station, Date date);
+
+    Line findById(Long id);
+
+    Line deleteById(Line line);
+
 }

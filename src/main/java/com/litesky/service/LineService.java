@@ -20,4 +20,18 @@ public interface LineService {
      * @return
      */
     List<Line> findLineByStationRegexAndDate(String station, Date date);
+
+    /**
+     * 通过id查找路线
+     * @param id
+     * @return
+     */
+    Line findById(Long id);
+
+    /**
+     * 删除指定id的line
+     * @param id
+     * @return
+     */
+    void deleteById(Long id);
 }

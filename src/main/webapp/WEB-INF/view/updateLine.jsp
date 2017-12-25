@@ -37,13 +37,13 @@
                 <div class="ibox-title">
                     <h5>所有路线</h5>
                     <div class="ibox-tools">
-                        <a href="" class="btn btn-primary btn-xs">创建新路线</a>
+                        <a class="btn btn-primary btn-xs">创建新路线</a>
                     </div>
                 </div>
                 <div class="ibox-content">
                     <div class="row m-b-sm m-t-sm">
                         <div class="col-md-1">
-                            <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i
+                            <button type="button" id="loading-example-btn" class="btn btn-white btn-sm" onclick="refreshTable()"><i
                                     class="fa fa-refresh"></i> 刷新
                             </button>
                         </div>
@@ -68,6 +68,29 @@
 
 
 <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated bounceInRight">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+                </button>
+                <i class="fa fa-laptop modal-icon"></i>
+                <h4 class="modal-title">窗口标题</h4>
+                <small class="font-bold"></small>
+            </div>
+            <div class="modal-body">
+                <p><strong>H+</strong> 是一个完全响应式，基于Bootstrap3.3.6最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术，她提供了诸多的强大的可以重新组合的UI组件，并集成了最新的jQuery版本(v2.1.1)，当然，也集成了很多功能强大，用途广泛的jQuery插件，她可以用于所有的Web应用程序，如网站管理后台，网站会员中心，CMS，CRM，OA等等，当然，您也可以对她进行深度定制，以做出更强系统。</p>
+                <div class="form-group"><label>Email</label> <input type="email" placeholder="请输入您的Email" class="form-control"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="btn_alter_close" type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal inmodal" id="line_detail" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">
@@ -185,7 +208,16 @@
                         title: '创建时间',
                         field: 'createTime',
                         align: 'center',
-                        valign: 'middle'
+                        valign: 'middle',
+                        formatter:function (value, row, index) {
+                            if (value==null) {
+                                return "";
+                            }
+                            var date = new Date(value);
+                            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+                            var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+                            return date.getFullYear() + "-" + month + "-" + currentDate+" "+date.getHours()+":"+date.getMinutes();
+                        }
                     }
                     ,
                     {
@@ -219,14 +251,31 @@
                         confirmButtonText: "删除",
                         closeOnConfirm: false
                     }, function () {
+                        $.ajax({
+                            url:'/tickets/delete',
+                            type:'post',
+                            data:{'id':row.id},
+                            dataType:"json",
+                            success:function(result){
+                                var code=result.code;
+                                var message=result.message;
+                                    if (code==0) {
+                                    swal("删除成功！", "您已经永久删除了这条线路。", "success");
+                                    refreshTable();
+                                }else {
+                                    swal("删除失败",message,"error");
+                                }
+                            }
 
-                        swal("删除成功！", "您已经永久删除了这条线路。", "success");
+                        });
                     });
             },'click .btn_alter': function (e, value, row, index) {
-                    $('#myModal').show(e);
+                $('#myModal').modal({backdrop: 'static', keyboard: true});
+                $('#myModal').show();
 
             },'click .btn_detail': function (e, value, row, index) {
-
+                $('#line_detail').modal({backdrop: 'static', keyboard: true});
+                $('#line_detail').show();
             }
         };
 
@@ -240,6 +289,10 @@
         };
 
         return oTableInit;
+    }
+
+    function refreshTable() {
+        $('#table').bootstrapTable('refresh',{url: '/tickets/lines'})
     }
 </script>
 </body>

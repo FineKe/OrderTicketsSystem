@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
@@ -30,6 +31,7 @@ import javax.annotation.Resource;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations ={"file:src/main/webapp/WEB-INF/spring-mvc.xml","file:src/main/webapp/WEB-INF/applicationContext.xml"} )
 @WebAppConfiguration
+@Transactional
 public class SpringTest {
 
     @Resource
@@ -80,6 +82,8 @@ public class SpringTest {
     }
     @Test
     public void testLineDao() {
+//        System.out.println(lineService.deleteById(1l));
+        lineDao.delete(0l);
 
     }
 }

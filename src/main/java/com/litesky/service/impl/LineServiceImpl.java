@@ -40,5 +40,15 @@ public class LineServiceImpl implements LineService{
         return lineDao.findByStationsContainingAndStatrtingDate(station,date);
     }
 
+    @Override
+    public Line findById(Long id) {
+        return lineDao.findById(id);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        lineDao.delete(id);
+    }
+
 
 }

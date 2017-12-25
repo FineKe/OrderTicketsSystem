@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/tickets")
-public class LineController {
+public class LineController extends BaseController {
     @Resource
     private LineService lineService;
 
@@ -77,5 +77,13 @@ public class LineController {
         page.setRows(lines);
         page.setTotal(lines.size());
         return JSONObject.toJSONString(page);
+    }
+
+    @ResponseBody
+    @PostMapping("/delete")
+    public String deleteLineById(Long id) {
+        System.out.println("id:"+id);
+        lineService.deleteById(id);
+        return resultData(0, null, "删除成功");
     }
 }

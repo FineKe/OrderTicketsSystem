@@ -14,7 +14,7 @@ public class Line implements Serializable{
     private static final long serialVersionUID = -4256673794817723963L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     /**
