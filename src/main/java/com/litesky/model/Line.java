@@ -35,58 +35,63 @@ public class Line implements Serializable{
     /**
      * 历经时间
      */
-    private Date arrivadeTime;
+    private String arrivadeTime;
+
+    /**
+     * 出发日期
+     */
+    private Date statrtingDate;
 
     /**
      * 商务座票数
      */
 
-    private int businessClassTickets;
+    private String businessClassTickets;
 
     /**
      * 一等座票数
      */
-    private int firstClassTickets;
+    private String firstClassTickets;
 
     /**
      * 二等座票数
      */
-    private int sencondClassTickets;
+    private String sencondClassTickets;
 
     /**
      * 高级软卧票数
      */
-    private int seniorSoftSleeperTickets;
+    private String seniorSoftSleeperTickets;
 
     /**
      * 软卧票数
      */
-    private int softSleeperTickets;
+    private String softSleeperTickets;
 
     /**
      * 动卧票数
      */
-    private int activelyingPosmonTickets;
+    private String activelyingPosmonTickets;
 
     /**
      * 硬卧票数
      */
-    private int touristCoachTickets;
+    private String touristCoachTickets;
 
     /**
      * 软座票数
      */
-    private int softSeatTickets;
+    private String softSeatTickets;
 
     /**
      * 硬座票数
      */
-    private int hardTickets;
+    private String hardTickets;
 
     /**
      * 无座票
      */
-    private int noSeatTickets;
+    private String noSeatTickets;
 
     /**
      * 路线创建时间
@@ -135,83 +140,99 @@ public class Line implements Serializable{
         this.stationTime = stationTime;
     }
 
-    public int getBusinessClassTickets() {
+    public String getArrivadeTime() {
+        return arrivadeTime;
+    }
+
+    public void setArrivadeTime(String arrivadeTime) {
+        this.arrivadeTime = arrivadeTime;
+    }
+
+    public Date getStatrtingDate() {
+        return statrtingDate;
+    }
+
+    public void setStatrtingDate(Date statrtingDate) {
+        this.statrtingDate = statrtingDate;
+    }
+
+    public String getBusinessClassTickets() {
         return businessClassTickets;
     }
 
-    public void setBusinessClassTickets(int businessClassTickets) {
+    public void setBusinessClassTickets(String businessClassTickets) {
         this.businessClassTickets = businessClassTickets;
     }
 
-    public int getFirstClassTickets() {
+    public String getFirstClassTickets() {
         return firstClassTickets;
     }
 
-    public void setFirstClassTickets(int firstClassTickets) {
+    public void setFirstClassTickets(String firstClassTickets) {
         this.firstClassTickets = firstClassTickets;
     }
 
-    public int getSencondClassTickets() {
+    public String getSencondClassTickets() {
         return sencondClassTickets;
     }
 
-    public void setSencondClassTickets(int sencondClassTickets) {
+    public void setSencondClassTickets(String sencondClassTickets) {
         this.sencondClassTickets = sencondClassTickets;
     }
 
-    public int getSeniorSoftSleeperTickets() {
+    public String getSeniorSoftSleeperTickets() {
         return seniorSoftSleeperTickets;
     }
 
-    public void setSeniorSoftSleeperTickets(int seniorSoftSleeperTickets) {
+    public void setSeniorSoftSleeperTickets(String seniorSoftSleeperTickets) {
         this.seniorSoftSleeperTickets = seniorSoftSleeperTickets;
     }
 
-    public int getSoftSleeperTickets() {
+    public String getSoftSleeperTickets() {
         return softSleeperTickets;
     }
 
-    public void setSoftSleeperTickets(int softSleeperTickets) {
+    public void setSoftSleeperTickets(String softSleeperTickets) {
         this.softSleeperTickets = softSleeperTickets;
     }
 
-    public int getActivelyingPosmonTickets() {
+    public String getActivelyingPosmonTickets() {
         return activelyingPosmonTickets;
     }
 
-    public void setActivelyingPosmonTickets(int activelyingPosmonTickets) {
+    public void setActivelyingPosmonTickets(String activelyingPosmonTickets) {
         this.activelyingPosmonTickets = activelyingPosmonTickets;
     }
 
-    public int getTouristCoachTickets() {
+    public String getTouristCoachTickets() {
         return touristCoachTickets;
     }
 
-    public void setTouristCoachTickets(int touristCoachTickets) {
+    public void setTouristCoachTickets(String touristCoachTickets) {
         this.touristCoachTickets = touristCoachTickets;
     }
 
-    public int getSoftSeatTickets() {
+    public String getSoftSeatTickets() {
         return softSeatTickets;
     }
 
-    public void setSoftSeatTickets(int softSeatTickets) {
+    public void setSoftSeatTickets(String softSeatTickets) {
         this.softSeatTickets = softSeatTickets;
     }
 
-    public int getHardTickets() {
+    public String getHardTickets() {
         return hardTickets;
     }
 
-    public void setHardTickets(int hardTickets) {
+    public void setHardTickets(String hardTickets) {
         this.hardTickets = hardTickets;
     }
 
-    public int getNoSeatTickets() {
+    public String getNoSeatTickets() {
         return noSeatTickets;
     }
 
-    public void setNoSeatTickets(int noSeatTickets) {
+    public void setNoSeatTickets(String noSeatTickets) {
         this.noSeatTickets = noSeatTickets;
     }
 
@@ -239,14 +260,6 @@ public class Line implements Serializable{
         this.ticketsPrice = ticketsPrice;
     }
 
-    public Date getArrivadeTime() {
-        return arrivadeTime;
-    }
-
-    public void setArrivadeTime(Date arrivadeTime) {
-        this.arrivadeTime = arrivadeTime;
-    }
-
     @Override
     public String toString() {
         return "Line{" +
@@ -254,16 +267,18 @@ public class Line implements Serializable{
                 ", trainNumber='" + trainNumber + '\'' +
                 ", stations='" + stations + '\'' +
                 ", stationTime='" + stationTime + '\'' +
-                ", businessClassTickets=" + businessClassTickets +
-                ", firstClassTickets=" + firstClassTickets +
-                ", sencondClassTickets=" + sencondClassTickets +
-                ", seniorSoftSleeperTickets=" + seniorSoftSleeperTickets +
-                ", softSleeperTickets=" + softSleeperTickets +
-                ", activelyingPosmonTickets=" + activelyingPosmonTickets +
-                ", touristCoachTickets=" + touristCoachTickets +
-                ", softSeatTickets=" + softSeatTickets +
-                ", hardTickets=" + hardTickets +
-                ", noSeatTickets=" + noSeatTickets +
+                ", arrivadeTime=" + arrivadeTime +
+                ", statrtingDate=" + statrtingDate +
+                ", businessClassTickets='" + businessClassTickets + '\'' +
+                ", firstClassTickets='" + firstClassTickets + '\'' +
+                ", sencondClassTickets='" + sencondClassTickets + '\'' +
+                ", seniorSoftSleeperTickets='" + seniorSoftSleeperTickets + '\'' +
+                ", softSleeperTickets='" + softSleeperTickets + '\'' +
+                ", activelyingPosmonTickets='" + activelyingPosmonTickets + '\'' +
+                ", touristCoachTickets='" + touristCoachTickets + '\'' +
+                ", softSeatTickets='" + softSeatTickets + '\'' +
+                ", hardTickets='" + hardTickets + '\'' +
+                ", noSeatTickets='" + noSeatTickets + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", ticketsPrice='" + ticketsPrice + '\'' +

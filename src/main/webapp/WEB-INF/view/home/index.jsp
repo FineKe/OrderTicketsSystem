@@ -69,13 +69,7 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a class="J_menuItem" href="/tickets/addline" data-index="0">路线增加</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="/tickets/deleteline">路线删除</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="/tickets/updateline">路线修改</a>
+                            <a class="J_menuItem" href="/tickets/updateline">路线管理</a>
                         </li>
                         <li>
                             <a class="J_menuItem" href="/user/user">用户管理</a>

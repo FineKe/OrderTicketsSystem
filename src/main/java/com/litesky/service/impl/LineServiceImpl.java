@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,4 +34,11 @@ public class LineServiceImpl implements LineService{
     public List<Line> findLineByStation(String station) {
         return lineDao.findByStationsLike(station);
     }
+
+    @Override
+    public List<Line> findLineByStationRegexAndDate(String station, Date date) {
+        return lineDao.findByStationsContainingAndStatrtingDate(station,date);
+    }
+
+
 }

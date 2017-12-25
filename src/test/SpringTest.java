@@ -1,5 +1,7 @@
 import com.litesky.controller.LineController;
+import com.litesky.dao.LineDao;
 import com.litesky.dao.UserDao;
+import com.litesky.model.Line;
 import com.litesky.model.SysPermission;
 import com.litesky.model.SysRole;
 import com.litesky.model.User;
@@ -18,6 +20,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 
@@ -48,6 +51,9 @@ public class SpringTest {
     @Resource
     LineService lineService;
 
+    @Resource
+    private LineDao lineDao;
+
     @Test
     public void test() {
         User user=userService.findByUsername("admin");
@@ -71,5 +77,9 @@ public class SpringTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    @Test
+    public void testLineDao() {
+
     }
 }

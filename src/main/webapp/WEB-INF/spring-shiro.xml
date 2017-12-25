@@ -59,6 +59,7 @@
             <value>
                 /static/**=anon
                 /tickets/query=anon
+                /tickets/search=anon
                 /**=authc
             </value>
         </property>

@@ -1,6 +1,7 @@
 package com.litesky.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.litesky.common.LineProcess;
 import com.litesky.model.Line;
 import com.litesky.model.Page;
 import com.litesky.model.Search;
@@ -62,9 +63,17 @@ public class LineController {
     @ResponseBody
     @RequestMapping("/search")
     public String search(@RequestBody Search search){
-        System.out.println(search.toString());
+        System.out.println(search.getStartingDate().toString());
+        Date date=search.getStartingDate();
+        date.setHours(0);
+        date.setMinutes(0);
+        date.setSeconds(0);
+        System.out.println(search.getStartingDate().toString());
         Page page=new Page();
-        List<Line> lines=lineService.findLineByStation(search.getStarting());
+        List<Line> lines=lineService.findLineByStationRegexAndDate(search.getStarting()+"%"+search.getDestination(),search.getStartingDate());
+        for (Line line : lines) {
+            LineProcess.lineDecoration(line,search.getStarting(),search.getDestination());
+        }
         page.setRows(lines);
         page.setTotal(lines.size());
         return JSONObject.toJSONString(page);
