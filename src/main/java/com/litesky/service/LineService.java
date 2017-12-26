@@ -34,4 +34,10 @@ public interface LineService {
      * @return
      */
     void deleteById(Long id);
+
+    /**
+     * 更新和保存路线
+     * @param line
+     */
+    Line saveLine(Line line);
 }

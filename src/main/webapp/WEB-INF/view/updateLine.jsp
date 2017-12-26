@@ -16,7 +16,6 @@
 
 
     <title>路线管理</title>
-    <link rel="shortcut icon" href="favicon.ico">
     <link href="../../static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
     <link href="../../static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
     <link href="../../static/css/animate.css" rel="stylesheet">
@@ -37,7 +36,7 @@
                 <div class="ibox-title">
                     <h5>所有路线</h5>
                     <div class="ibox-tools">
-                        <a class="btn btn-primary btn-xs">创建新路线</a>
+                        <a class="btn btn-primary btn-xs" onclick="createline()">创建新路线</a>
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -73,40 +72,243 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
                 </button>
-                <i class="fa fa-laptop modal-icon"></i>
-                <h4 class="modal-title">窗口标题</h4>
+                <i class="fa fa-train modal-icon"></i>
+                <h4 class="modal-title">路线修改</h4>
                 <small class="font-bold"></small>
             </div>
             <div class="modal-body">
-                <p><strong>H+</strong> 是一个完全响应式，基于Bootstrap3.3.6最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术，她提供了诸多的强大的可以重新组合的UI组件，并集成了最新的jQuery版本(v2.1.1)，当然，也集成了很多功能强大，用途广泛的jQuery插件，她可以用于所有的Web应用程序，如网站管理后台，网站会员中心，CMS，CRM，OA等等，当然，您也可以对她进行深度定制，以做出更强系统。</p>
-                <div class="form-group"><label>Email</label> <input type="email" placeholder="请输入您的Email" class="form-control"></div>
+                <form class="form-horizontal" id="create_form">
+
+                    <div class="form-group" hidden="hidden">
+                            <input type="text" class="form-control" name="id">
+                    </div><div class="hr-line-dashed"></div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">车次编辑</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="trainNumber"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div><div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">站点编辑</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="stations"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div><div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">站点到达时间</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="stationTime"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div><div class="hr-line-dashed"></div>
+                    <%--<div class="form-group">--%>
+                        <%--<label class="col-sm-2 control-label">历经时间</label>--%>
+                        <%--<div class="col-sm-10">--%>
+                            <%--<input type="text" class="form-control"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>--%>
+                        <%--</div>--%>
+                    <%--</div><div class="hr-line-dashed"></div>--%>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">出发日期</label>
+                        <div class="col-sm-10">
+                            <input type="text" id="date_start" class="laydate-icon form-control layer-date" name="statrtingDate"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div><div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">商务座</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="businessClassTickets"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div><div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">一等座</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="firstClassTickets"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div><div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">二等座</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="sencondClassTickets"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div><div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">高级软卧</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="seniorSoftSleeperTickets"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div><div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">软卧</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="softSleeperTickets"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div><div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">动卧</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="activelyingPosmonTickets"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div><div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">硬卧</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="touristCoachTickets"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div><div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">软座</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="softSeatTickets"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div><div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">硬座</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="hardTickets"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div><div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">无座</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="noSeatTickets"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">票价编辑</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="ticketsPrice"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button id="btn_alter_close" type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary">保存</button>
+                <button type="button" class="btn btn-primary" onclick="ceate_save()">创建</button>
             </div>
         </div>
     </div>
 </div>
 
 
-<div class="modal inmodal" id="line_detail" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal inmodal" id="line_create" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
                 </button>
                 <i class="fa fa-laptop modal-icon"></i>
-                <h4 class="modal-title">窗口标题</h4>
+                <h4 class="modal-title">创建新路线</h4>
                 <small class="font-bold"></small>
             </div>
             <div class="modal-body">
-                <p><strong>H+</strong> 是一个完全响应式，基于Bootstrap3.3.6最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术，她提供了诸多的强大的可以重新组合的UI组件，并集成了最新的jQuery版本(v2.1.1)，当然，也集成了很多功能强大，用途广泛的jQuery插件，她可以用于所有的Web应用程序，如网站管理后台，网站会员中心，CMS，CRM，OA等等，当然，您也可以对她进行深度定制，以做出更强系统。</p>
-                <div class="form-group"><label>Email</label> <input type="email" placeholder="请输入您的Email" class="form-control"></div>
+                <form>
+                    <div class="form-group" hidden="hidden">
+                        <input type="text" class="form-control" name="id">
+                    </div><div class="hr-line-dashed"></div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">车次编辑</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="trainNumber" id="trainNumber"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div><div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">站点编辑</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="stations" id="stations"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div><div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">站点到达时间</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="stationTime" id="stationTime"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div><div class="hr-line-dashed"></div>
+                    <%--<div class="form-group">--%>
+                    <%--<label class="col-sm-2 control-label">历经时间</label>--%>
+                    <%--<div class="col-sm-10">--%>
+                    <%--<input type="text" class="form-control"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>--%>
+                    <%--</div>--%>
+                    <%--</div><div class="hr-line-dashed"></div>--%>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">出发日期</label>
+                        <div class="col-sm-10">
+                            <input type="text" id="date" class="laydate-icon form-control layer-date" name="statrtingDate"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div><div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">商务座</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="businessClassTickets" id="businessClassTickets"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div><div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">一等座</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="firstClassTickets" id="firstClassTickets"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div><div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">二等座</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="sencondClassTickets" id="sencondClassTickets"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div><div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">高级软卧</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="seniorSoftSleeperTickets" id="seniorSoftSleeperTickets"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div><div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">软卧</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="softSleeperTickets" id="softSleeperTickets"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div><div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">动卧</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="activelyingPosmonTickets" id="activelyingPosmonTickets"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div><div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">硬卧</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="touristCoachTickets" id="touristCoachTickets"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div><div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">软座</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="softSeatTickets" id="softSeatTickets"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div><div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">硬座</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="hardTickets" id="hardTickets"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div><div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">无座</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="noSeatTickets" id="noSeatTickets"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">票价编辑</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="ticketsPrice" id="ticketsPrice"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary">保存</button>
+                <button type="button" class="btn btn-primary" onclick="createsave()">创建</button>
             </div>
         </div>
     </div>
@@ -129,12 +331,6 @@
         $('#loading-example-btn').click(function () {
             btn = $(this);
             simpleLoad(btn, true)
-
-            // Ajax example
-//                $.ajax().always(function () {
-//                    simpleLoad($(this), false)
-//                });
-
             simpleLoad(btn, false)
         });
     });
@@ -151,13 +347,156 @@
         }
     }
 </script>
+<script src="../../static/js/plugins/layer/laydate/laydate.js"></script>
 <script src="../../static/js/content.js?v=1.0.0"></script>
 <script src="../../static/js/plugins/sweetalert/sweetalert.min.js"/>
 <script src="../../static/js/jquery.min.js"></script>
 <script src="../../static/js/bootstrap.min.js"></script>
 <script src="../../static/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
 <script src="../../static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script>
+    //外部js调用
+    laydate({
+        elem: '#date_start', //目标元素。由于laydate.js封装了一个轻量级的选择器引擎，因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
+        event: 'focus' //响应事件。如果没有传入event，则按照默认的click
+    });
+
+    //日期范围限制
+    var start = {
+        elem: '#start',
+        format: 'YYYY/MM/DD hh:mm:ss',
+        min: laydate.now(), //设定最小日期为当前日期
+        max: '2099-06-16 23:59:59', //最大日期
+        istime: true,
+        istoday: false,
+        choose: function (datas) {
+            end.min = datas; //开始日选好后，重置结束日的最小日期
+            end.start = datas //将结束日的初始值设定为开始日
+        }
+    };
+    var end = {
+        elem: '#end',
+        format: 'YYYY/MM/DD hh:mm:ss',
+        min: laydate.now(),
+        max: '2099-06-16 23:59:59',
+        istime: true,
+        istoday: false,
+        choose: function (datas) {
+            start.max = datas; //结束日选好后，重置开始日的最大日期
+        }
+    };
+    laydate(start);
+    laydate(end);
+</script>
+
 <script type="text/javascript">
+
+
+    function createline() {
+        $('#line_create').modal({backdrop: 'static', keyboard: true});
+        $('#line_create').show();
+    };
+
+    function  createsave() {
+        swal({
+            title: "您确定要创建这条路线",
+            text: "请谨慎操作！",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Create",
+            closeOnConfirm: false
+        }, function () {
+            var trainNumber=$("#trainNumber").val();
+            var stations=$("#stations").val();
+            var stationTime=$("#stationTime").val();
+            // var statrtingDate=$("input[name='statrtingDate']").val();
+            var businessClassTickets=$("#businessClassTickets").val();
+            var firstClassTickets=$("#firstClassTickets").val();
+            var sencondClassTickets=$("#sencondClassTickets").val();
+            var seniorSoftSleeperTickets=$("#seniorSoftSleeperTickets").val();
+            var softSleeperTickets=$("#softSleeperTickets").val();
+            var activelyingPosmonTickets=$("#activelyingPosmonTickets").val();
+            var touristCoachTickets=$("#touristCoachTickets").val();
+            var softSeatTickets=$("#softSeatTickets").val();
+            var hardTickets=$("#hardTickets").val();
+            var noSeatTickets=$("#noSeatTickets").val();
+            var ticketsPrice=$("#ticketsPrice").val();
+            var data={'trainNumber':trainNumber,'stations':stations,'stationTime':stationTime
+                ,'businessClassTickets':businessClassTickets,'firstClassTickets':firstClassTickets,'sencondClassTickets':sencondClassTickets,'seniorSoftSleeperTickets':seniorSoftSleeperTickets
+                ,'softSleeperTickets':softSleeperTickets,'activelyingPosmonTickets':activelyingPosmonTickets,'touristCoachTickets':touristCoachTickets,'softSeatTickets':softSeatTickets,
+                'hardTickets':hardTickets,'noSeatTickets':noSeatTickets,'ticketsPrice':ticketsPrice};
+            console.info(data);
+            $.ajax({
+                url:'/tickets/create',
+                type:'post',
+                data:data,
+                dataType:"json",
+                success:function(result){
+                    var code=result.code;
+                    var message=result.message;
+                    if (code==0) {
+                        swal("创建成功！", "", "success");
+                        refreshTable();
+                    }else {
+                        swal("创建失败失败",message,"error");
+                    }
+                }
+
+            });
+        });
+    };
+
+    function altersave() {
+        swal({
+            title: "您确定要修改这条路线",
+            text: "请谨慎操作！",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "更新",
+            closeOnConfirm: false
+        }, function () {
+            var id=$("input[name='id']").val();
+            var trainNumber=$("input[name='trainNumber']").val();
+            var stations=$("input[name='stations']").val();
+            var stationTime=$("input[name='stationTime']").val();
+            // var statrtingDate=$("input[name='statrtingDate']").val();
+            var businessClassTickets=$("input[name='businessClassTickets']").val();
+            var firstClassTickets=$("input[name='firstClassTickets']").val();
+            var sencondClassTickets=$("input[name='sencondClassTickets']").val();
+            var seniorSoftSleeperTickets=$("input[name='seniorSoftSleeperTickets']").val();
+            var softSleeperTickets=$("input[name='softSleeperTickets']").val();
+            var activelyingPosmonTickets=$("input[name='activelyingPosmonTickets']").val();
+            var touristCoachTickets=$("input[name='touristCoachTickets']").val();
+            var softSeatTickets=$("input[name='softSeatTickets']").val();
+            var hardTickets=$("input[name='hardTickets']").val();
+            var noSeatTickets=$("input[name='noSeatTickets']").val();
+            var ticketsPrice=$("input[name='ticketsPrice']").val();
+            var data={'id':id,'trainNumber':trainNumber,'stations':stations,'stationTime':stationTime
+            ,'businessClassTickets':businessClassTickets,'firstClassTickets':firstClassTickets,'sencondClassTickets':sencondClassTickets,'seniorSoftSleeperTickets':seniorSoftSleeperTickets
+            ,'softSleeperTickets':softSleeperTickets,'activelyingPosmonTickets':activelyingPosmonTickets,'touristCoachTickets':touristCoachTickets,'softSeatTickets':softSeatTickets,
+            'hardTickets':hardTickets,'noSeatTickets':noSeatTickets,'ticketsPrice':ticketsPrice};
+            console.info(data);
+            $.ajax({
+                url:'/tickets/update',
+                type:'post',
+                data:data,
+                dataType:"json",
+                success:function(result){
+                    var code=result.code;
+                    var message=result.message;
+                    if (code==0) {
+                        swal("更新成功！", "", "success");
+                        refreshTable();
+                    }else {
+                        swal("更新失败",message,"error");
+                    }
+                }
+
+            });
+        });
+    }
 
     $(function () {
         //初始化Table
@@ -261,6 +600,7 @@
                                 var message=result.message;
                                     if (code==0) {
                                     swal("删除成功！", "您已经永久删除了这条线路。", "success");
+                                        $('#line_detail').modal('hide');
                                     refreshTable();
                                 }else {
                                     swal("删除失败",message,"error");
@@ -272,7 +612,23 @@
             },'click .btn_alter': function (e, value, row, index) {
                 $('#myModal').modal({backdrop: 'static', keyboard: true});
                 $('#myModal').show();
-
+                $("input[name='id']").val(row.id);
+                $("input[name='trainNumber']").val(row.trainNumber);
+                $("input[name='stations']").val(row.stations);
+                $("input[name='stationTime']").val(row.stationTime);
+                // $("input[name='arrivadeTime']").val(row.arrivadeTime);
+                // $("input[name='statrtingDate']").val(row.statrtingDate);
+                $("input[name='businessClassTickets']").val(row.businessClassTickets);
+                $("input[name='firstClassTickets']").val(row.firstClassTickets);
+                $("input[name='sencondClassTickets']").val(row.sencondClassTickets);
+                $("input[name='seniorSoftSleeperTickets']").val(row.seniorSoftSleeperTickets);
+                $("input[name='softSleeperTickets']").val(row.softSleeperTickets);
+                $("input[name='activelyingPosmonTickets']").val(row.activelyingPosmonTickets);
+                $("input[name='touristCoachTickets']").val(row.touristCoachTickets);
+                $("input[name='softSeatTickets']").val(row.softSeatTickets);
+                $("input[name='hardTickets']").val(row.hardTickets);
+                $("input[name='noSeatTickets']").val(row.noSeatTickets);
+                $("input[name='ticketsPrice']").val(row.ticketsPrice);
             },'click .btn_detail': function (e, value, row, index) {
                 $('#line_detail').modal({backdrop: 'static', keyboard: true});
                 $('#line_detail').show();

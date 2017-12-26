@@ -1,5 +1,7 @@
 package com.litesky.model;
 
+import javafx.beans.DefaultProperty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -14,7 +16,7 @@ public class Line implements Serializable{
     private static final long serialVersionUID = -4256673794817723963L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     /**

@@ -50,5 +50,10 @@ public class LineServiceImpl implements LineService{
         lineDao.delete(id);
     }
 
+    @Override
+    public Line saveLine(Line line) {
+       return (Line) lineDao.save(line);
+    }
+
 
 }

@@ -2,6 +2,7 @@ package com.litesky.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.litesky.common.LineProcess;
+import com.litesky.dao.LineDao;
 import com.litesky.model.Line;
 import com.litesky.model.Page;
 import com.litesky.model.Search;
@@ -85,5 +86,31 @@ public class LineController extends BaseController {
         System.out.println("id:"+id);
         lineService.deleteById(id);
         return resultData(0, null, "删除成功");
+    }
+
+    @ResponseBody
+    @PostMapping("/update")
+    public String updateLine(Line line) {
+
+        System.out.println(line);
+        if (lineService.saveLine(line) != null) {
+            return resultData(0, line, "更新陈宫");
+        } else {
+            return resultData(-1,null,"更新失败，服务器内部错误");
+        }
+//        return resultData(-1,null,"更新失败，服务器内部错误");
+
+    }
+
+    @ResponseBody
+    @PostMapping("/create")
+    public String addLine(Line line) {
+        System.out.println(line);
+        line.setCreateTime(new Date());
+        if (lineService.saveLine(line) != null) {
+            return resultData(0, line, "更新陈宫");
+        } else {
+            return resultData(-1,null,"更新失败，服务器内部错误");
+        }
     }
 }
