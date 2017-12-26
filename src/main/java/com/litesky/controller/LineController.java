@@ -89,12 +89,12 @@ public class LineController extends BaseController {
     }
 
     @ResponseBody
-    @PostMapping("/update")
-    public String updateLine(Line line) {
+    @RequestMapping("/update")
+    public String updateLine(@RequestBody Line line) {
 
         System.out.println(line);
         if (lineService.saveLine(line) != null) {
-            return resultData(0, line, "更新陈宫");
+            return resultData(0, line, "更新成功");
         } else {
             return resultData(-1,null,"更新失败，服务器内部错误");
         }
@@ -103,8 +103,8 @@ public class LineController extends BaseController {
     }
 
     @ResponseBody
-    @PostMapping("/create")
-    public String addLine(Line line) {
+    @RequestMapping("/create")
+    public String createLine(@RequestBody Line line) {
         System.out.println(line);
         line.setCreateTime(new Date());
         if (lineService.saveLine(line) != null) {

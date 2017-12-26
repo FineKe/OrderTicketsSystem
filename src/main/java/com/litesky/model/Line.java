@@ -1,10 +1,9 @@
 package com.litesky.model;
 
-import javafx.beans.DefaultProperty;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+
 
 /**
  * Created by finefine.com on 2017/12/14.

@@ -96,6 +96,7 @@
 
 <script>
     function search(){
+        console.info($('#date_picker').val());
         var param={url:'/tickets/search',
             query:{
                 starting: $('#starting').val(),
