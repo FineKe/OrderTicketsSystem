@@ -78,7 +78,7 @@
                 <small class="font-bold"></small>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" id="create_form">
+                <form class="form-horizontal" id="alter_line_form">
                     <div class="form-group" style="display: none" >
                         <label class="col-sm-2 control-label">创建时间</label>
                         <div class="col-sm-10">
@@ -107,12 +107,6 @@
                             <input type="text" id="alter_stationTime" class="form-control" name="stationTime"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
                         </div>
                     </div><div class="hr-line-dashed"></div>
-                    <%--<div class="form-group">--%>
-                        <%--<label class="col-sm-2 control-label">历经时间</label>--%>
-                        <%--<div class="col-sm-10">--%>
-                            <%--<input type="text" class="form-control"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>--%>
-                        <%--</div>--%>
-                    <%--</div><div class="hr-line-dashed"></div>--%>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">出发日期</label>
                         <div class="col-sm-10">
@@ -122,7 +116,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">商务座</label>
                         <div class="col-sm-10">
-                            <input type="number" id="alter_businessClassTickets" class="form-control" name="businessClassTickets"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                            <input type="number"  id="alter_businessClassTickets" class="form-control" name="businessClassTickets"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
                         </div>
                     </div><div class="hr-line-dashed"></div>
                     <div class="form-group">
@@ -190,7 +184,7 @@
             </div>
             <div class="modal-footer">
                 <button id="btn_alter_close" type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary" onclick="altersave()">修改</button>
+                <button type="button" class="btn btn-primary" onclick="alter_submit()">修改</button>
             </div>
         </div>
     </div>
@@ -208,7 +202,7 @@
                 <small class="font-bold"></small>
             </div>
             <div class="modal-body">
-                <form>
+                <form id="create_line_form">
                     <div class="hr-line-dashed"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">车次编辑</label>
@@ -225,7 +219,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">站点到达时间</label>
                         <div class="col-sm-10">
-                            <input type="text" id="create_stationTime" class="form-control" name="stationTime"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                            <input type="text"  id="create_stationTime" class="form-control" name="stationTime" > <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
                         </div>
                     </div><div class="hr-line-dashed"></div>
                     <div class="form-group">
@@ -305,7 +299,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary" onclick="createsave()">创建</button>
+                <button type="button" class="btn btn-primary" onclick="create_submit()">创建</button>
             </div>
         </div>
     </div>
@@ -313,37 +307,16 @@
 
 </div>
 
+
 <!-- 全局js -->
 <script src="../../static/js/jquery.min.js?v=2.1.4"></script>
 <script src="../../static/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../../static/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="../../static/js/plugins/validate/messages_zh.min.js"></script>
 
 
 <!-- 自定义js -->
 <script src="../../static/js/content.js?v=1.0.0"></script>
-
-
-<script>
-    $(document).ready(function () {
-
-        $('#loading-example-btn').click(function () {
-            btn = $(this);
-            simpleLoad(btn, true)
-            simpleLoad(btn, false)
-        });
-    });
-
-    function simpleLoad(btn, state) {
-        if (state) {
-            btn.children().addClass('fa-spin');
-            btn.contents().last().replaceWith(" Loading");
-        } else {
-            setTimeout(function () {
-                btn.children().removeClass('fa-spin');
-                btn.contents().last().replaceWith(" Refresh");
-            }, 2000);
-        }
-    }
-</script>
 <script src="../../static/js/plugins/layer/laydate/laydate.js"></script>
 <script src="../../static/js/content.js?v=1.0.0"></script>
 <script src="../../static/js/plugins/sweetalert/sweetalert.min.js"/>
@@ -351,6 +324,9 @@
 <script src="../../static/js/bootstrap.min.js"></script>
 <script src="../../static/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
 <script src="../../static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+
+
+
 <script>
     //外部js调用
     laydate({
@@ -389,6 +365,8 @@
     laydate(start);
     laydate(end);
 </script>
+
+
 
 <script type="text/javascript">
 
@@ -656,6 +634,100 @@
     function refreshTable() {
         $('#table').bootstrapTable('refresh',{url: '/tickets/lines'})
     }
+</script>
+<script>
+    $(document).ready(function () {
+
+        $('#loading-example-btn').click(function () {
+            btn = $(this);
+            simpleLoad(btn, true)
+            simpleLoad(btn, false)
+        });
+    });
+
+    function simpleLoad(btn, state) {
+        if (state) {
+            btn.children().addClass('fa-spin');
+            btn.contents().last().replaceWith(" Loading");
+        } else {
+            setTimeout(function () {
+                btn.children().removeClass('fa-spin');
+                btn.contents().last().replaceWith(" Refresh");
+            });
+        }
+    }
+
+    /**
+     * 修改表单验证
+     */
+    $(function () {
+       $('#alter_line_form').validate({
+           submitHandler:function () {
+               altersave();
+           },
+           debug:true,
+           // onkeyup:true,
+           rules:{
+               trainNumber:{required:true,rangelength:[5,5]},
+               stations:{required:true},
+               stationTime:{required:true},
+               statrtingDate:{required:true},
+               businessClassTickets:{required:true,min:0},
+               firstClassTickets:{required:true,min:0},
+               sencondClassTickets:{required:true,min:0},
+               seniorSoftSleeperTickets:{required:true,min:0},
+               softSleeperTickets:{required:true,min:0},
+               activelyingPosmonTickets:{required:true,min:0},
+               touristCoachTickets:{required:true,min:0},
+               softSeatTickets:{required:true,min:0},
+               hardTickets:{required:true,min:0},
+               noSeatTickets:{required:true,min:0},
+               ticketsPrice:{required:true}
+           }
+       })
+    });
+
+
+    /**
+     * 创建表单验证
+     */
+
+    $(function () {
+        $('#create_line_form').validate({
+            submitHandler:function () {
+                createsave();
+            },
+            debug:true,
+            // onkeyup:true,
+            rules:{
+                trainNumber:{required:true,rangelength:[5,5]},
+                stations:{required:true},
+                stationTime:{required:true},
+                statrtingDate:{required:true},
+                businessClassTickets:{required:true,min:0},
+                firstClassTickets:{required:true,min:0},
+                sencondClassTickets:{required:true,min:0},
+                seniorSoftSleeperTickets:{required:true,min:0},
+                softSleeperTickets:{required:true,min:0},
+                activelyingPosmonTickets:{required:true,min:0},
+                touristCoachTickets:{required:true,min:0},
+                softSeatTickets:{required:true,min:0},
+                hardTickets:{required:true,min:0},
+                noSeatTickets:{required:true,min:0},
+                ticketsPrice:{required:true}
+            }
+        })
+    });
+
+    function alter_submit() {
+        $('#alter_line_form').submit();
+    }
+
+    function create_submit() {
+        $('#create_line_form').submit();
+    }
+
+
 </script>
 </body>
 </html>
