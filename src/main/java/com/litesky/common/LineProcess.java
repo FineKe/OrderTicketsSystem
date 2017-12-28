@@ -2,6 +2,9 @@ package com.litesky.common;
 
 import com.litesky.model.Line;
 
+/*
+票价，历时转换加工
+ */
 public class LineProcess {
 
     public static final double[] rate={4,2.5,2,3,2.3,2,1.8,1.5,1,1};//票价倍率
@@ -46,7 +49,7 @@ public class LineProcess {
    }
 
     /**
-     * 分割价格并转换成double
+     * 分割价格并转换成double[]
      * @param price
      * @return
      */

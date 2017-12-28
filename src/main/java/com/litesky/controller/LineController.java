@@ -64,11 +64,8 @@ public class LineController extends BaseController {
     @ResponseBody
     @RequestMapping("/search")
     public String search(@RequestBody Search search){
-        System.out.println(search.getStartingDate().toString());
+        System.out.println(search.toString());
         Date date=search.getStartingDate();
-        date.setHours(0);
-        date.setMinutes(0);
-        date.setSeconds(0);
         System.out.println(search.getStartingDate().toString());
         Page page=new Page();
         List<Line> lines=lineService.findLineByStationRegexAndDate(search.getStarting()+"%"+search.getDestination(),search.getStartingDate());
@@ -98,8 +95,6 @@ public class LineController extends BaseController {
         } else {
             return resultData(-1,null,"更新失败，服务器内部错误");
         }
-//        return resultData(-1,null,"更新失败，服务器内部错误");
-
     }
 
     @ResponseBody

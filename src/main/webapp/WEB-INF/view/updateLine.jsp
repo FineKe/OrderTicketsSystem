@@ -441,7 +441,7 @@
             var trainNumber=$('#alter_trainNumber').val();
             var stations=$('#alter_stations').val();
             var stationTime=$('#alter_stationTime').val();
-            var statrtingDate=$('#alter_statrtingDate').val();
+            var statrtingDate=$('#alter_date_start').val();
             var businessClassTickets=$('#alter_businessClassTickets').val();
             var firstClassTickets=$('#alter_firstClassTickets').val();
             var sencondClassTickets=$('#alter_sencondClassTickets').val();
@@ -458,6 +458,7 @@
             ,'businessClassTickets':businessClassTickets,'firstClassTickets':firstClassTickets,'sencondClassTickets':sencondClassTickets,'seniorSoftSleeperTickets':seniorSoftSleeperTickets
             ,'softSleeperTickets':softSleeperTickets,'activelyingPosmonTickets':activelyingPosmonTickets,'touristCoachTickets':touristCoachTickets,'softSeatTickets':softSeatTickets,
             'hardTickets':hardTickets,'noSeatTickets':noSeatTickets,'ticketsPrice':ticketsPrice,'createTime':createTime};
+            console.info(data);
             console.info(JSON.stringify(data));
             $.ajax({
                 contentType:'application/json;charset=UTF-8',
@@ -613,6 +614,12 @@
                 $('#alter_noSeatTickets').val(row.noSeatTickets);
                 $('#alter_ticketsPrice').val(row.ticketsPrice);
                 $('#alter_createTime').val(row.createTime);
+                $('#alter_date_start').val(function () {
+                    var date = new Date(row.statrtingDate);
+                    var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+                    var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+                    return date.getFullYear() + "-" + month + "-" + currentDate;
+                })
             },'click .btn_detail': function (e, value, row, index) {
                 $('#line_detail').modal({backdrop: 'static', keyboard: true});
                 $('#line_detail').show();
@@ -665,7 +672,7 @@
            submitHandler:function () {
                altersave();
            },
-           debug:true,
+           // debug:true,
            // onkeyup:true,
            rules:{
                trainNumber:{required:true,rangelength:[5,5]},
@@ -697,7 +704,7 @@
             submitHandler:function () {
                 createsave();
             },
-            debug:true,
+            // debug:true,
             // onkeyup:true,
             rules:{
                 trainNumber:{required:true,rangelength:[5,5]},

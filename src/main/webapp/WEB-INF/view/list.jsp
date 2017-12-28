@@ -23,7 +23,8 @@
 
 <div class="container" style="margin-top: 10px;">
     <div class="row">
-        <div class="col-sm-3" style="text-align: center">
+        <form id="search_form">
+        <div class="col-sm-3">
             <label class="col-sm-4 control-label" for="starting">出发地</label>
             <div class="col-sm-8">
                 <input type="text" id="starting" class="form-control layer-date" name="starting">
@@ -43,12 +44,13 @@
                 <input type="text" id="date_picker" class="laydate-icon form-control layer-date" name="date">
             </div>
         </div>
-
+        </form>
         <div class="col-sm-3">
             <div class="col-sm-4">
-                <button type="button" id="search" class="search form-control  layer-date btn-info" onclick="search()"> <span class="glyphicon glyphicon-search"></span></button>
+                <button type="button" id="search" class="search form-control  layer-date btn-info" onclick="search_submit()"> <span class="glyphicon glyphicon-search"></span></button>
             </div>
         </div>
+
     </div>
     <div class="row">
         <table id="table"></table>
@@ -59,6 +61,8 @@
 <script src="../../static/js/bootstrap.min.js"></script>
 <script src="../../static/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
 <script src="../../static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="../../static/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="../../static/js/plugins/validate/messages_zh.min.js"></script>
 <script>
     //外部js调用
     laydate({
@@ -92,6 +96,9 @@
     };
     laydate(start);
     laydate(end);
+
+
+
 </script>
 
 <script>
@@ -206,6 +213,25 @@
             return temp;
         };
         return oTableInit;
+    }
+
+    $(function () {
+        $('#search_form').validate({
+            submitHandler:function () {
+                search();
+
+            },
+            debug:true,
+            rules:{
+                starting:{required:true},
+                destination:{required:true},
+                date:{required:true},
+            }
+        });
+    });
+
+    function search_submit() {
+        $('#search_form').submit();
     }
 </script>
 </body>
