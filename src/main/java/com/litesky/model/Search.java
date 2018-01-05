@@ -22,6 +22,11 @@ public class Search implements Serializable{
      */
     private Date startingDate;
 
+    /**
+     * 高级搜索选项
+     */
+    private int advance;
+
 
     public String getStarting() {
         return starting;
@@ -47,12 +52,21 @@ public class Search implements Serializable{
         this.startingDate = startingDate;
     }
 
+    public int getAdvance() {
+        return advance;
+    }
+
+    public void setAdvance(int advance) {
+        this.advance = advance;
+    }
+
     @Override
     public String toString() {
         return "Search{" +
                 "starting='" + starting + '\'' +
                 ", destination='" + destination + '\'' +
                 ", startingDate=" + startingDate +
+                ", advance=" + advance +
                 '}';
     }
 }

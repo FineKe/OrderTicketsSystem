@@ -65,15 +65,27 @@ public class LineController extends BaseController {
     @RequestMapping("/search")
     public String search(@RequestBody Search search){
         System.out.println(search.toString());
-        Date date=search.getStartingDate();
-        System.out.println(search.getStartingDate().toString());
+        List<Line> lines;
         Page page=new Page();
-        List<Line> lines=lineService.findLineByStationRegexAndDate(search.getStarting()+"%"+search.getDestination(),search.getStartingDate());
-        for (Line line : lines) {
-            LineProcess.lineDecoration(line,search.getStarting(),search.getDestination());
+        switch (search.getAdvance()) {
+            case 1:lines=shortLine(search);
+            break;
+            case 2:lines=cheapLine(search);
+            break;
+            default: lines=lineService.findLineByStationRegexAndDate(search.getStarting()+"%"+search.getDestination(),search.getStartingDate());
         }
-        page.setRows(lines);
-        page.setTotal(lines.size());
+
+        if (lines != null && lines.size() > 0) {
+
+            for (Line line : lines) {
+                LineProcess.lineDecoration(line, search.getStarting(), search.getDestination());
+            }
+            page.setRows(lines);
+            page.setTotal(lines.size());
+        } else {
+            page.setRows(null);
+            page.setTotal(0);
+        }
         return JSONObject.toJSONString(page);
     }
 
@@ -108,4 +120,34 @@ public class LineController extends BaseController {
             return resultData(-1,null,"更新失败，服务器内部错误");
         }
     }
+
+    @RequestMapping(value = "/advanced",method = RequestMethod.GET)
+    public String advanceSearch()
+    {
+        return "advanceSearch";
+    }
+
+
+    /**
+     * 最短路径搜索
+     * @param search
+     * @return
+     */
+    public List<Line> shortLine(Search search)
+    {
+
+        return null;
+    }
+
+    /**
+     * 价格最低搜索
+     * @param search
+     * @return
+     */
+    public List<Line> cheapLine(Search search)
+    {
+        return null;
+    }
+
+
 }

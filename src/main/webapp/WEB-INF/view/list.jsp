@@ -44,12 +44,21 @@
                 <input type="text" id="date_picker" class="laydate-icon form-control layer-date" name="date">
             </div>
         </div>
-        </form>
+
         <div class="col-sm-3">
+                <div class="col-sm-8">
+                    <label class=" control-label" for="advance">高级搜索</label>
+                    <select name="advance" id="advance">
+                        <option value="0" selected>普通搜索</option>
+                        <option value="1" >路线最短</option>
+                        <option value="2">价格最低</option>
+                    </select>
+                </div>
             <div class="col-sm-4">
                 <button type="button" id="search" class="search form-control  layer-date btn-info" onclick="search_submit()"> <span class="glyphicon glyphicon-search"></span></button>
             </div>
         </div>
+        </form>
 
     </div>
     <div class="row">
@@ -108,9 +117,11 @@
             query:{
                 starting: $('#starting').val(),
                 destination: $('#destination').val(),
-                startingDate: $('#date_picker').val()}
+                startingDate: $('#date_picker').val(),
+                advance:$('#advance').val()
+            }
         }
-
+        console.info($('#advance').val());
         $("#table").bootstrapTable('refresh',param);
     };
 </script>
